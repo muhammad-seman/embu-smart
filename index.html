@@ -14,62 +14,89 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
-            background: #f5f5f5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 95%;
             margin: 0 auto;
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
         .tabs {
             display: flex;
-            gap: 5px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
-            border-bottom: 2px solid #1e3a5f;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 5px;
         }
 
         .tab {
-            padding: 10px 20px;
-            background: #e0e0e0;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #e0e7ff 0%, #cfd9ff 100%);
             border: none;
             cursor: pointer;
-            border-radius: 5px 5px 0 0;
-            font-weight: bold;
+            border-radius: 10px 10px 0 0;
+            font-weight: 600;
             position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tab:hover {
+            background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 100%);
+            transform: translateY(-2px);
         }
 
         .tab.active {
-            background: #1e3a5f;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
         }
 
         .tab .close-tab {
             margin-left: 10px;
-            color: #ff4444;
+            color: #ef4444;
             font-weight: bold;
             cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .tab .close-tab:hover {
+            color: #dc2626;
         }
 
         .tab.active .close-tab {
-            color: #ffcccc;
+            color: #fecaca;
+        }
+
+        .tab.active .close-tab:hover {
+            color: #fca5a5;
         }
 
         .add-tab-btn {
-            padding: 10px 20px;
-            background: #4CAF50;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             border: none;
             cursor: pointer;
-            border-radius: 5px 5px 0 0;
-            font-weight: bold;
+            border-radius: 10px 10px 0 0;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .add-tab-btn:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
         }
 
         .match-content {
@@ -82,12 +109,36 @@
 
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .header h1 {
-            font-size: 24px;
+            font-size: 28px;
             margin-bottom: 10px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-weight: 700;
+        }
+
+        .header p {
+            color: white;
+        }
+
+        .header input {
+            background: rgba(255,255,255,0.95);
+            border: 2px solid rgba(255,255,255,0.3);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .header input:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
         }
 
         .match-info {
@@ -119,15 +170,19 @@
         }
 
         .wasit-section {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f0f8ff;
-            border-radius: 5px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 12px;
+            border: 2px solid #bae6fd;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .wasit-section h3 {
-            margin-bottom: 10px;
-            color: #1e3a5f;
+            margin-bottom: 15px;
+            color: #0369a1;
+            font-size: 18px;
+            font-weight: 600;
         }
 
         .wasit-list {
@@ -175,66 +230,110 @@
 
         .score-table {
             width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            font-size: 13px;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-bottom: 25px;
+            font-size: 14px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .score-table th, .score-table td {
-            border: 2px solid #333;
-            padding: 8px;
+            border: 1px solid #e5e7eb;
+            padding: 12px;
             text-align: center;
+            min-width: 80px;
         }
 
         .score-table th {
-            background: #1e3a5f;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
             color: white;
-            font-weight: bold;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
         }
 
         .score-table .team-header {
-            background: #1e3a5f;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
             color: white;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         .score-table input {
             width: 100%;
-            padding: 5px;
-            border: 1px solid #ddd;
+            padding: 8px;
+            border: 2px solid #e5e7eb;
             text-align: center;
-            font-size: 13px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .score-table input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: #fefce8;
+        }
+
+        .score-table input:hover {
+            border-color: #a5b4fc;
         }
 
         .score-table .discarded {
-            background: #ffcccc !important;
-            color: #666;
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%) !important;
+            color: #991b1b;
+            position: relative;
+        }
+
+        .score-table .discarded::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            right: 5%;
+            height: 2px;
+            background: #dc2626;
+            transform: translateY(-50%);
         }
 
         .score-table .total-cell {
-            background: #ffff99;
-            font-weight: bold;
+            background: linear-gradient(135deg, #fef9c3 0%, #fef08a 100%);
+            font-weight: 700;
+            color: #854d0e;
+            font-size: 16px;
         }
 
         .score-table .final-cell {
-            background: #99ffff;
-            font-weight: bold;
+            background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
+            font-weight: 700;
+            color: #065f46;
+            font-size: 15px;
         }
 
         .score-table .winner {
-            background: #ff6b6b;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
             color: white;
-            font-weight: bold;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
         }
 
         .score-table .loser {
-            background: #99ff99;
-            color: #333;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+            font-weight: 600;
         }
 
         .score-table .draw {
-            background: #ffeb99;
-            color: #333;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+            font-weight: 600;
         }
 
         .notes {
@@ -267,31 +366,47 @@
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
-            border-radius: 4px;
+            border-radius: 10px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .btn-primary {
-            background: #2196F3;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
         .btn-success {
-            background: #4CAF50;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
         }
 
         .btn-danger {
-            background: #f44336;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
             color: white;
         }
 
-        .btn:hover {
-            opacity: 0.9;
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
         }
 
         @media print {
