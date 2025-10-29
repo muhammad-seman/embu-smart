@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Canggih Nilai Embu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #1e3a5f;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: #e0e0e0;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .tab.active {
+            background: #1e3a5f;
+            color: white;
+        }
+
+        .tab .close-tab {
+            margin-left: 10px;
+            color: #ff4444;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .tab.active .close-tab {
+            color: #ffcccc;
+        }
+
+        .add-tab-btn {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-weight: bold;
+        }
+
+        .match-content {
+            display: none;
+        }
+
+        .match-content.active {
+            display: block;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .match-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .info-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-field label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .info-field input, .info-field select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .wasit-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f0f8ff;
+            border-radius: 5px;
+        }
+
+        .wasit-section h3 {
+            margin-bottom: 10px;
+            color: #1e3a5f;
+        }
+
+        .wasit-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .wasit-item {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .wasit-item input[type="text"] {
+            flex: 1;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .wasit-item input[type="radio"] {
+            cursor: pointer;
+        }
+
+        .wasit-item button {
+            padding: 6px 10px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .add-wasit-btn {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .score-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        .score-table th, .score-table td {
+            border: 2px solid #333;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .score-table th {
+            background: #1e3a5f;
+            color: white;
+            font-weight: bold;
+        }
+
+        .score-table .team-header {
+            background: #1e3a5f;
+            color: white;
+            font-weight: bold;
+        }
+
+        .score-table input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .score-table .discarded {
+            background: #ffcccc !important;
+            color: #666;
+        }
+
+        .score-table .total-cell {
+            background: #ffff99;
+            font-weight: bold;
+        }
+
+        .score-table .final-cell {
+            background: #99ffff;
+            font-weight: bold;
+        }
+
+        .score-table .winner {
+            background: #ff6b6b;
+            color: white;
+            font-weight: bold;
+        }
+
+        .score-table .loser {
+            background: #99ff99;
+            color: #333;
+        }
+
+        .score-table .draw {
+            background: #ffeb99;
+            color: #333;
+        }
+
+        .notes {
+            background: #fff8dc;
+            padding: 15px;
+            border-left: 4px solid #ffa500;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .notes h3 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+
+        .notes ol {
+            margin-left: 20px;
+        }
+
+        .notes li {
+            margin-bottom: 5px;
+            color: #d32f2f;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-success {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        @media print {
+            .tabs, .actions, .add-wasit-btn, .wasit-item button, .tab .close-tab {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="tabs" id="tabs"></div>
+
+        <div id="matches-container"></div>
+
+        <div class="actions">
+            <button class="btn btn-primary" onclick="exportToPDF()">Export ke PDF</button>
+            <button class="btn btn-success" onclick="exportBackup()">Backup Data (JSON)</button>
+            <button class="btn btn-success" onclick="document.getElementById('importFile').click()">Import Backup</button>
+            <input type="file" id="importFile" accept=".json" style="display: none" onchange="importBackup(event)">
+            <button class="btn btn-danger" onclick="clearAllData()">Hapus Semua Data</button>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; padding: 20px; border-top: 2px solid #e0e0e0; color: #666;">
+            <p style="margin-bottom: 5px;"><strong>Created by Muhammad Seman</strong></p>
+            <p style="font-size: 12px; color: #999;">© 2025 - This software is provided as-is for personal and organizational use.</p>
+            <p style="font-size: 12px; color: #d32f2f; font-weight: bold;">⚠️ DILARANG MEMPERJUALBELIKAN SISTEM INI</p>
+            <p style="font-size: 11px; color: #999; margin-top: 5px;">Licensed under MIT License - Free to use, modify, and distribute for non-commercial purposes</p>
+        </div>
+    </div>
+
+    <script src="embu-calculator.js"></script>
+</body>
+</html>
